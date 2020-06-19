@@ -40,7 +40,7 @@ void reconnect() {
   Serial.print("Direccion IP: ");
   Serial.println(WiFi.localIP());
    // ... and subscribe to topic
-  client.subscribe("101/asistencia/visto");  //Se subcribe a ledStatus  Recive mensajes en este topic
+  client.subscribe("101/asistencia/visto");  //Se subcribe a 101/asistencia/visto Recibe mensajes en este topic
  } else {
   Serial.print("failed, rc=");
   Serial.print(client.state());
