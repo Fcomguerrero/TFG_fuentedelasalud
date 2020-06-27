@@ -1,0 +1,6 @@
+/*Thing mqtt:topic:bme280_1 "BME280_1" @ "habitacion1" [  ]           
+Thing mqtt:topic:movimiento_1 "Movimiento_1" @ "habitacion1" [ hostname="192.168.1.144" ]   
+Thing mqtt:topic:magnetico_1 "Magnetico_1" @ "habitacion1" [ hostname="192.168.1.146"]    
+Thing mqtt:broker:broker "MQTT Broker" @ "habitacion1" [ hostname="192.168.1.230" ]*/
+
+

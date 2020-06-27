@@ -1,0 +1,48 @@
+sitemap residencia_fuente_de_la_salud label="Residencia fuente de la salud"{
+    
+    Frame label="Asistencia" icon="switch" {                       
+        Switch item=Asistencia101  label="Asistencia 101" valuecolor=[Asistencia101==ON="green"] 
+        Switch item=Asistencia102  label="Asistencia 102" valuecolor=[Asistencia102==ON="green"] 
+        Switch item=Asistencia103  label="Asistencia 103" valuecolor=[Asistencia103==ON="green"] 
+        Switch item=Asistencia104  label="Asistencia 104" valuecolor=[Asistencia104==ON="green"]         
+    } 
+    Frame label="Alarmas" icon="siren"{        
+        Webview item=Alarmas url="http://fuentedelasalud.ddns.net:8083/Alert/index.php" height=8              
+    }
+    Frame label="Gestion de habitaciones" icon="firstfloor" {
+        Group item=Habitacion101
+        Group item=Habitacion102
+        Group item=Habitacion103
+        Group item=Habitacion104                      
+    }
+    Frame label="Escaleras" {
+        Text item=Escalera1
+        Text item=Escalera2
+    }
+
+    Frame label="Group" {
+        Group item=gTemperature
+        Group item=gHumidity
+        Group item=gDoor
+        Group item=gWindow
+    }
+
+    Frame label="Configuración"{
+        Group item=Hab_101_conf
+        Group item=Hab_102_conf
+        Group item=Hab_103_conf
+        Group item=Hab_104_conf                 
+    }    
+    Frame label="Automático" {
+        Switch item=Automatico icon="switch" mappings=[ON="Automático", OFF="Manual"]
+    }
+
+    Frame label="Control de acceso"{
+        //Webview item=ControlAcceso url="http://grafanapanel.ddns.net:8083/d-solo/E6h5FAmMk/panel-de-estadisticas?orgId=1&from=1591895172452&to=1592240772452&panelId=6" height=8
+        Webview item=ControlAcceso url="http://fuentedelasalud.ddns.net:8083/RFID/index.php" height=8
+        //Webview item=ControlAcceso url="http://fuentedelasalud.ddns.net:8082/habpanel/index.html#/view/Controlacceso" height=4
+    }    
+     Frame label="Test de usabilidad"{        
+        Webview item=Test_usabilidad url="https://docs.google.com/forms/d/e/1FAIpQLSf4gMnhZP1PvQ1r8f2tjmwsIrOVO5Q_qXKx1htvdCbnBfZNdA/viewform?embedded=true"        
+    } 
+}

@@ -1,0 +1,343 @@
+var Number counter = 0
+var Number aviso_hum = 0
+var Number aviso_tmp = 0
+var Number aviso_pol = 0
+var Number aviso_ven = 0
+var Number control_hum = 0
+var Number control_tmp = 0
+var Number control_pol = 0
+var Number control_ven = 0
+//*****************************************************************
+//*****************************************************************
+rule "controlrecup101temp"
+when
+    Item Temperatura101 received update or Item Tempinf101 received update or Item Tempsup101 received update
+then
+    if((Temperatura101.state.toString < Tempinf101.state.toString) || (Temperatura101.state.toString > Tempsup101.state.toString)){
+        aviso_tmp = 1
+        control_tmp = 1
+        val mqttActions3 = getActions("mqtt","mqtt:broker:broker")        
+        mqttActions3.publishMQTT("101/control/temperatura","1")    
+        mqttActions3.publishMQTT("101/alarma","1")        
+    }else{
+        control_tmp = 0
+        val mqttActions4 = getActions("mqtt","mqtt:broker:broker")
+        mqttActions4.publishMQTT("101/control/temperatura","0")    
+        if(aviso_hum == 0 && aviso_pol == 0 && aviso_tmp == 0 && aviso_ven == 0){
+            mqttActions4.publishMQTT("101/alarma","0")  
+        }
+    }
+    if(control_hum == 0 && control_pol == 0 && control_ven == 0 && control_tmp == 0 ){
+        val mqttActions = getActions("mqtt","mqtt:broker:broker")
+        mqttActions.publishMQTT("101/alarma","0")
+    }
+end
+//-----------------------------------------------------------------
+rule "controlrecup101hum"
+when
+    Item Humedad101 received update or Item Humeinf101 received update or Item Humesup101 received update    
+then
+    if((Humedad101.state.toString < Humeinf101.state.toString) || (Humedad101.state.toString > Humesup101.state.toString)){
+        aviso_hum = 1
+        control_hum = 1
+        val mqttActions = getActions("mqtt","mqtt:broker:broker")
+        mqttActions.publishMQTT("101/control/humedad","1")    
+        mqttActions.publishMQTT("101/alarma","1")        
+    }else{
+        control_hum = 0
+        val mqttActions1 = getActions("mqtt","mqtt:broker:broker")
+        mqttActions1.publishMQTT("101/control/humedad","0")    
+        if(aviso_hum == 0 && aviso_pol == 0 && aviso_tmp == 0 && aviso_ven == 0){
+            mqttActions1.publishMQTT("101/alarma","0")  
+        }
+    }
+    if(control_hum == 0 && control_pol == 0 && control_ven == 0 && control_tmp == 0 ){
+        val mqttActions = getActions("mqtt","mqtt:broker:broker")
+        mqttActions.publishMQTT("101/alarma","0")
+    }
+end
+
+//-----------------------------------------------------------------
+rule "controlrecup101pol"
+when
+    Item Polvo101X received update or Item Polinf101 received update or Item Polsup101 received update    
+then
+    if(Polvo101X.state.toString < Polinf101.state.toString || Polvo101X.state.toString > Polsup101.state.toString){
+        aviso_pol = 1
+        control_pol = 1
+        val mqttActions = getActions("mqtt","mqtt:broker:broker")
+        mqttActions.publishMQTT("101/control/polvo","1")    
+        mqttActions.publishMQTT("101/alarma","1")        
+    }else{
+        control_pol = 0
+        val mqttActions1 = getActions("mqtt","mqtt:broker:broker")
+        mqttActions1.publishMQTT("101/control/polvo","0")    
+        if(aviso_hum == 0 && aviso_pol == 0 && aviso_tmp == 0 && aviso_ven == 0){
+            mqttActions1.publishMQTT("101/alarma","0")  
+        }
+    }
+    if(control_hum == 0 && control_pol == 0 && control_ven == 0 && control_tmp == 0 ){
+        val mqttActions = getActions("mqtt","mqtt:broker:broker")
+        mqttActions.publishMQTT("101/alarma","0")
+    }
+end
+
+//-----------------------------------------------------------------
+rule "controlrecup101ven"
+when
+    Item Ventana101 received update  or Item Ventana101Conf received update
+then     
+    if(Ventana101Conf.state.toString == "OPEN" || Ventana101Conf.state.toString == "CLOSED"){        
+        if(Ventana101.state.toString != Ventana101Conf.state.toString){
+            aviso_ven = 1
+            control_ven = 1
+            val mqttActions3 = getActions("mqtt","mqtt:broker:broker")        
+            mqttActions3.publishMQTT("101/control/ventana","1")    
+            mqttActions3.publishMQTT("101/alarma","1")       
+        }
+        else{
+            control_ven = 0
+            val mqttActions4 = getActions("mqtt","mqtt:broker:broker")
+            mqttActions4.publishMQTT("101/control/ventana","0")    
+            if(aviso_hum == 0 && aviso_pol == 0 && aviso_tmp == 0 && aviso_ven == 0){
+                val mqttActionss = getActions("mqtt","mqtt:broker:broker")
+                mqttActionss.publishMQTT("101/alarma","0")  
+            }
+        }
+    }else{
+        control_ven = 0
+        val mqttActions5 = getActions("mqtt","mqtt:broker:broker")
+        mqttActions5.publishMQTT("101/control/ventana","0")    
+        if(aviso_hum == 0 && aviso_pol == 0 && aviso_tmp == 0 && aviso_ven == 0){
+            val mqttActions6 = getActions("mqtt","mqtt:broker:broker")
+            mqttActions6.publishMQTT("101/alarma","0")  
+        }
+    }
+    if(control_hum == 0 && control_pol == 0 && control_ven == 0 && control_tmp == 0 ){
+        val mqttActions = getActions("mqtt","mqtt:broker:broker")
+        mqttActions.publishMQTT("101/alarma","0")
+    }
+end
+//------------------------------------------------------------------
+rule "Alarma101recCMD0hum"
+when
+    Item Alarma101 received command 0
+then
+   if(aviso_hum == 1 && aviso_tmp == 1 && aviso_pol == 1 && aviso_ven == 1 && control_pol != 0 && control_ven != 0 && control_tmp != 0 && control_hum != 0){
+        counter = 5
+    }
+    else if(aviso_hum == 1 && aviso_tmp==1 && control_hum != 0 && control_tmp != 0 && aviso_pol == 0 && aviso_ven == 0){
+        counter = 6
+    }
+    else if(aviso_tmp == 1 && aviso_pol==1 && control_tmp != 0 && control_pol != 0 && aviso_hum == 0 && aviso_ven == 0){
+        counter = 7
+    }
+    else if(aviso_hum ==1 && aviso_pol==1 && control_hum != 0 && control_pol != 0 && aviso_tmp == 0 && aviso_ven == 0){
+        counter = 8
+    }
+    else if(aviso_hum ==1 && aviso_ven == 1 && control_hum != 0 && control_ven != 0 && aviso_tmp == 0 && aviso_pol == 0){
+        counter = 9
+    }
+    else if(aviso_tmp == 1 && aviso_ven == 1 && control_tmp != 0 && control_ven != 0 && aviso_hum == 0 && aviso_pol == 0){
+        counter = 10
+    }
+    else if(aviso_pol == 1 && aviso_ven == 1 && control_pol != 0 && control_ven != 0 && aviso_hum == 0 && aviso_tmp == 0){
+        counter = 11
+    }
+    else if(aviso_tmp==1 && control_tmp != 0 && aviso_hum == 0 && aviso_pol == 0 && aviso_ven == 0){
+        counter = 1
+    }
+    else if(aviso_hum==1 && control_hum != 0 && aviso_tmp == 0 && aviso_pol == 0 && aviso_ven == 0){
+        counter = 2
+    }
+    else if(aviso_pol==1 && control_pol != 0 && aviso_hum == 0 && aviso_tmp == 0 && aviso_ven == 0){
+        counter = 3
+    }
+    else if(aviso_ven ==1 && control_ven != 0 && aviso_hum == 0 && aviso_pol == 0 && aviso_tmp == 0){
+        counter = 4
+    }
+    else if(aviso_hum == 1 && aviso_tmp==1 && aviso_ven == 1 && control_hum != 0 && control_tmp != 0 && control_ven != 0 && control_pol == 0){
+        counter = 12
+    }
+    else if(aviso_hum == 1 && aviso_tmp==1 && aviso_pol == 1 && control_hum != 0 && control_tmp != 0 && control_pol != 0 && aviso_ven == 0){
+        counter = 13
+    }
+    else if(aviso_tmp ==1 && aviso_pol==1 && aviso_ven == 1 && control_pol != 0 && control_tmp != 0 && control_ven != 0 && aviso_hum == 0){
+        counter = 14
+    }
+    else if(aviso_hum ==1 && aviso_pol==1 && aviso_ven == 1 && control_hum != 0 && control_pol != 0 && control_ven != 0 && aviso_tmp == 0){
+        counter = 15
+    }
+    else if(aviso_hum ==1 && aviso_ven == 1 && control_hum != 0 && control_ven != 0 && aviso_pol == 0 && aviso_tmp == 0){
+        counter = 9
+    }
+    else if(aviso_tmp == 1 && aviso_ven == 1 && control_tmp != 0 && control_ven != 0 && aviso_pol == 0 && aviso_hum == 0){
+        counter = 10
+    }
+    else if(aviso_pol == 1 && aviso_ven == 1 && control_pol != 0 && control_ven != 0 && aviso_hum == 0 && aviso_tmp == 0){
+        counter = 11
+    }
+    if(Controlcam101.state == 1){   // 101/control/camara        
+        val mqttActions = getActions("mqtt","mqtt:broker:broker")                                  
+        mqttActions.publishMQTT("101/camara","OK")
+        mqttActions.publishMQTT("101/control/camara","0")
+    }
+
+    switch (counter)
+    {
+        case 1: {
+                val mqttActionss = getActions("mqtt","mqtt:broker:broker")
+                mqttActionss.publishMQTT("101/control/temperatura","2")
+                aviso_tmp = 0   
+        }   
+
+        case 2: {
+                val mqttActionss = getActions("mqtt","mqtt:broker:broker")
+                mqttActionss.publishMQTT("101/control/humedad","2")
+                aviso_hum = 0   
+        }
+
+        case 3: {
+                val mqttActionss = getActions("mqtt","mqtt:broker:broker")
+                mqttActionss.publishMQTT("101/control/polvo","2")                
+                aviso_pol = 0     
+        } 
+
+        case 4: {
+                val mqttActionss = getActions("mqtt","mqtt:broker:broker")
+                mqttActionss.publishMQTT("101/control/ventana","2")
+                aviso_ven = 0  
+        } 
+
+        case 5: {
+                val mqttActionss = getActions("mqtt","mqtt:broker:broker")
+                mqttActionss.publishMQTT("101/control/temperatura","2")
+                mqttActionss.publishMQTT("101/control/humedad","2")
+                mqttActionss.publishMQTT("101/control/polvo","2")
+                mqttActionss.publishMQTT("101/control/ventana","2") 
+                aviso_ven = 0
+                aviso_hum = 0
+                aviso_pol = 0
+                aviso_tmp = 0
+        }
+
+        case 6: {
+            val mqttActionss = getActions("mqtt","mqtt:broker:broker")
+            mqttActionss.publishMQTT("101/control/temperatura","2")
+            mqttActionss.publishMQTT("101/control/humedad","2")            
+            aviso_hum = 0
+            aviso_tmp = 0
+        }
+
+        case 7: {
+            val mqttActionss = getActions("mqtt","mqtt:broker:broker")
+            mqttActionss.publishMQTT("101/control/temperatura","2")
+            mqttActionss.publishMQTT("101/control/polvo","2")
+            aviso_pol = 0
+            aviso_tmp = 0  
+        }
+
+        case 8: {
+            val mqttActionss = getActions("mqtt","mqtt:broker:broker")
+            mqttActionss.publishMQTT("101/control/humedad","2")
+            mqttActionss.publishMQTT("101/control/polvo","2")
+            aviso_hum = 0
+            aviso_pol = 0  
+        }
+
+        case 9: {
+            val mqttActionss = getActions("mqtt","mqtt:broker:broker")
+            mqttActionss.publishMQTT("101/control/humedad","2")
+            mqttActionss.publishMQTT("101/control/ventana","2")
+            aviso_ven = 0
+            aviso_hum = 0  
+        }
+
+        case 10: {
+            val mqttActionss = getActions("mqtt","mqtt:broker:broker")
+            mqttActionss.publishMQTT("101/control/temperatura","2")
+            mqttActionss.publishMQTT("101/control/ventana","2")
+            aviso_tmp = 0
+            aviso_ven = 0  
+        }
+
+        case 11: {
+            val mqttActionss = getActions("mqtt","mqtt:broker:broker")
+            mqttActionss.publishMQTT("101/control/ventana","2")
+            mqttActionss.publishMQTT("101/control/polvo","2") 
+            aviso_ven = 0
+            aviso_pol = 0 
+        }
+        case 12: {
+            val mqttActionss = getActions("mqtt","mqtt:broker:broker")
+            mqttActionss.publishMQTT("101/control/ventana","2")
+            mqttActionss.publishMQTT("101/control/humedad","2") 
+            mqttActionss.publishMQTT("101/control/temperatura","2")            
+            aviso_hum = 0
+            aviso_tmp = 0
+            aviso_ven = 0 
+        }
+        case 13: {
+            val mqttActionss = getActions("mqtt","mqtt:broker:broker")
+            mqttActionss.publishMQTT("101/control/polvo","2")
+            mqttActionss.publishMQTT("101/control/humedad","2") 
+            mqttActionss.publishMQTT("101/control/temperatura","2")
+            aviso_hum = 0
+            aviso_tmp = 0
+            aviso_pol = 0  
+        }
+        case 14: {
+            val mqttActionss = getActions("mqtt","mqtt:broker:broker")
+            mqttActionss.publishMQTT("101/control/ventana","2")
+            mqttActionss.publishMQTT("101/control/polvo","2") 
+            mqttActionss.publishMQTT("101/control/temperatura","2")
+            aviso_pol = 0
+            aviso_tmp = 0
+            aviso_ven = 0   
+        }
+        case 15: {
+            val mqttActionss = getActions("mqtt","mqtt:broker:broker")
+            mqttActionss.publishMQTT("101/control/ventana","2")
+            mqttActionss.publishMQTT("101/control/humedad","2") 
+            mqttActionss.publishMQTT("101/control/polvo","2")
+            aviso_hum = 0
+            aviso_pol = 0
+            aviso_ven = 0   
+        }
+    }
+end
+//***************************************************************************
+//**************************LIMITACIONES DE CONFIGURACION *******************
+//***************************************************************************
+rule "tempinf101_SUPERA_tempsup101"
+when
+    Item Tempinf101 received update  or Item Tempsup101 received update
+then
+    if(Tempinf101.state > Tempsup101.state){
+        Tempinf101.state = Tempsup101.state
+    }else if (Tempsup101.state < Tempinf101.state){
+        Tempsup101.state = Tempinf101.state
+    }
+end
+//--------- Humeinf101 y Humesup101 ---------------------------------
+rule "humeinf101_SUPERA_humesup101"
+when
+    Item Humeinf101 received update  or Item Humesup101 received update
+then
+    if(Humeinf101.state > Humesup101.state){
+        Humeinf101.state = Humesup101.state
+    }else if (Humesup101.state < Humeinf101.state){
+        Humesup101.state = Humeinf101.state
+    }
+end
+//--------- Polvoinf101 y Polvosup101 --------------------------------
+rule "polinf101_SUPERA_polsup101"
+when
+    Item Polinf101 received update  or Item Polsup101 received update
+then
+    if(Polinf101.state > Polsup101.state){
+        Polinf101.state = Polsup101.state
+    }else if (Polsup101.state < Polinf101.state){
+        Polsup101.state = Polinf101.state
+    }
+end

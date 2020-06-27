@@ -1,0 +1,105 @@
+
+//***************************************************************************
+//***********LIMITACIONES DE ALARMA PULSACIONES DE USUARIO*******************
+//***************************************************************************
+rule "alarma101userON"         
+when                            
+  Item Alarma101 changed from 0 to 1
+then
+  val mqttActions = getActions("mqtt","mqtt:broker:broker")
+  mqttActions.publishMQTT("101/alarma/user", "1")
+end
+rule "alarma101userOFF"                
+when                                          
+  Item Alarma101User received command 0     
+then
+    if(Alarma101.state == 1){
+      Alarma101.sendCommand(0)   
+    }
+end
+//---------------------------------------------------------------------
+rule "alarma101_OFF"         
+when                            
+  Item Alarma101 changed from 1 to 0
+then
+  val mqttActions = getActions("mqtt","mqtt:broker:broker")
+  mqttActions.publishMQTT("101/alarma/user", "0")
+end
+//*********************************************************************
+//*********************************************************************
+rule "alarma102userON"         
+when                            
+  Item Alarma102 changed from 0 to 1
+then
+  val mqttActions = getActions("mqtt","mqtt:broker:broker")
+  mqttActions.publishMQTT("102/alarma/user", "1")
+end
+rule "alarma102userOFF"                
+when                                          
+  Item Alarma102User received command 0     
+then
+    if(Alarma102.state == 1){
+      Alarma102.sendCommand(0)   
+    }
+end
+//---------------------------------------------------------------------
+rule "alarma102_OFF"         
+when                            
+  Item Alarma102 changed from 1 to 0
+then
+  val mqttActions = getActions("mqtt","mqtt:broker:broker")
+  mqttActions.publishMQTT("102/alarma/user", "0")
+end
+//*********************************************************************
+//*********************************************************************
+rule "alarma103userON"         
+when                            
+  Item Alarma103 changed from 0 to 1
+then
+  val mqttActions = getActions("mqtt","mqtt:broker:broker")
+  mqttActions.publishMQTT("103/alarma/user", "1")
+end
+rule "alarma103userOFF"                
+when                                          
+  Item Alarma103User received command 0     
+then
+    if(Alarma103.state == 1){
+      Alarma103.sendCommand(0)   
+    }
+end
+//---------------------------------------------------------------------
+rule "alarma103_OFF"         
+when                            
+  Item Alarma103 changed from 1 to 0
+then
+  val mqttActions = getActions("mqtt","mqtt:broker:broker")
+  mqttActions.publishMQTT("103/alarma/user", "0")
+end
+//*********************************************************************
+//*********************************************************************
+rule "alarma104userON"         
+when                            
+  Item Alarma104 changed from 0 to 1
+then
+  val mqttActions = getActions("mqtt","mqtt:broker:broker")
+  mqttActions.publishMQTT("104/alarma/user", "1")
+end
+rule "alarma104userOFF"                
+when                                          
+  Item Alarma104User received command 0     
+then
+    if(Alarma104.state == 1){
+      Alarma104.sendCommand(0)   
+    }
+end
+//---------------------------------------------------------------------------
+rule "alarma104_OFF"         
+when                            
+  Item Alarma104 changed from 1 to 0
+then
+  val mqttActions = getActions("mqtt","mqtt:broker:broker")
+  mqttActions.publishMQTT("104/alarma/user", "0")
+end
+//***************************************************************************
+//*****************REGLAS PARA SIMULACION CON PYTHON*************************
+//***************************************************************************

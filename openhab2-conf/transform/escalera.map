@@ -1,0 +1,4 @@
+OPEN=Abierta
+CLOSED=Cerrada
+NULL=Desconocido
+-=Error

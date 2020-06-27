@@ -1,0 +1,31 @@
+//---------------------------------------------------------------------
+/*rule "escalera1onTOoff"  //cambia al realizar un cambio desde mqtt 
+when                        //o introducir un valor en API
+  Item Escalera1 changed from ON to OFF
+then
+  val mqttActions = getActions("mqtt","mqtt:broker:broker")
+  mqttActions.publishMQTT("escalera1/estado", "OFF")
+end
+rule "escalera1offTOon"                 //changed * To *
+when
+  Item Escalera1 changed from OFF to ON
+then
+  val mqttActions = getActions("mqtt","mqtt:broker:broker")
+  mqttActions.publishMQTT("escalera1/estado","ON")
+end
+//---------------------------------------------------------------------
+rule "escalera2onTOoff"  //cambia al realizar un cambio desde mqtt 
+when                        //o introducir un valor en API
+  Item Escalera2 changed from ON to OFF
+then
+  val mqttActions = getActions("mqtt","mqtt:broker:broker")
+  mqttActions.publishMQTT("escalera2/estado", "OFF")
+end
+rule "escalera2offTOon"                 //changed * To *
+when
+  Item Escalera2 changed from OFF to ON
+then
+  val mqttActions = getActions("mqtt","mqtt:broker:broker")
+  mqttActions.publishMQTT("escalera2/estado","ON")
+end*/
+//---------------------------------------------------------------------

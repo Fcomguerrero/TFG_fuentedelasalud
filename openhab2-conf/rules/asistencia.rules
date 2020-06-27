@@ -1,0 +1,37 @@
+//---------------------------------------------------------------------
+rule "asistencia101onTOoff"
+when                        
+  Item Asistencia101 received command OFF
+then
+  val mqttActions = getActions("mqtt","mqtt:broker:broker")
+  mqttActions.publishMQTT("101/asistencia", "OFF")
+  mqttActions.publishMQTT("101/asistencia/visto", "0")
+end
+//---------------------------------------------------------------------
+rule "asistencia102onTOoff"
+when                        
+  Item Asistencia102 received command OFF
+then
+  val mqttActions = getActions("mqtt","mqtt:broker:broker")
+  mqttActions.publishMQTT("102/asistencia","OFF")
+  mqttActions.publishMQTT("102/asistencia/visto", "0")
+end
+//---------------------------------------------------------------------
+rule "asistencia103onTOoff"  
+when                        
+  Item Asistencia103 received command OFF
+then
+  val mqttActions = getActions("mqtt","mqtt:broker:broker")
+  mqttActions.publishMQTT("103/asistencia","OFF")
+  mqttActions.publishMQTT("103/asistencia/visto", "0")
+end
+//---------------------------------------------------------------------
+rule "asistencia104onTOoff"
+when                       
+  Item Asistencia104 received command OFF
+then
+  val mqttActions = getActions("mqtt","mqtt:broker:broker")
+  mqttActions.publishMQTT("104/asistencia","OFF")
+  mqttActions.publishMQTT("104/asistencia/visto", "0")
+end
+//---------------------------------------------------------------------

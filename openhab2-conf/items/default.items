@@ -1,0 +1,138 @@
+Group   FuenteDeLaSalud "Residencia fuente de la salud"     <house>             ["Building"]
+
+Group   Habitacion101   "Habitación 101"      <firstfloor>   (FuenteDeLaSalud)   ["FirstFloor"]
+Group   Habitacion102   "Habitación 102"      <firstfloor>   (FuenteDeLaSalud)   ["FirstFloor"]
+Group   Habitacion103   "Habitación 103"      <firstfloor>   (FuenteDeLaSalud)   ["FirstFloor"]
+Group   Habitacion104   "Habitación 104"      <firstfloor>   (FuenteDeLaSalud)   ["FirstFloor"]
+Group   Alarmas         "Alarmas"              <alarm>        (FuenteDeLaSalud)  ["Siren"]
+Group   ControlAcceso   "Control de acceso"   <access_control>(FuenteDeLaSalud)  ["control de acceso"]
+Group   Test_usabilidad   "Test"   <text>(FuenteDeLaSalud)  ["Test"]
+
+Group Hab_101_conf "Hab 101 conf" <settings> (FuenteDeLaSalud) ["FirstFloor"]
+Group Hab_102_conf "Hab 102 conf" <settings> (FuenteDeLaSalud) ["FirstFloor"]
+Group Hab_103_conf "Hab 103 conf" <settings> (FuenteDeLaSalud) ["FirstFloor"]
+Group Hab_104_conf "Hab 104 conf" <settings> (FuenteDeLaSalud) ["FirstFloor"]
+//--------------------------------------------------------------------------------------------------------------------------
+Number Temperatura101 "Temperatura 101[%.1f ºC]" <temperature> (Habitacion101,gTemperature){channel="mqtt:topic:280101:temperatura101"}
+Number Humedad101 "Humedad 101[%d %%]"         <humidity> (Habitacion101,gHumidity){channel="mqtt:topic:280101:humedad101"}
+Number Presion101 "Presion[%.1f mbr]"         <pressure> {channel="mqtt:topic:280101:presion101"}
+Number Altitud101 "Altitud[%d m]"         <altitud> {channel="mqtt:topic:280101:altitud101"}
+String Camara101 "Camara" <camera> (Habitacion101){channel="mqtt:topic:camara101:camara101"}
+Contact Ventana101 "Ventana 101[MAP(ventana.map):%s]" <window> (Habitacion101,gWindow){channel="mqtt:topic:ventana101:ventana101"}
+Number Polvo101 "Polvo[%.1f ug/m3]" {channel="mqtt:topic:polvo101:polvo101"}
+Number Polvo101X "Polvo 101[%.2f ug/m3]" <polvo> (Habitacion101){channel="mqtt:topic:polvo101x:polvo101x"}
+Number Alarma101 "Alarma" <siren> {channel="mqtt:topic:alarma101:alarma101"}
+Switch Asistencia101 "Asistencia" <switch> {channel="mqtt:topic:asistencia101:asistencia101"}
+//-------------------------------------------------------------------------------------------------------------------------
+Number Temperatura102 "Temperatura 102[%.1f ºC]" <temperature> (Habitacion102,gTemperature){channel="mqtt:topic:280102:temperatura102"}
+Number Humedad102 "Humedad 102[%d %%]" <humidity> (Habitacion102,gHumidity){channel="mqtt:topic:280102:humedad102"}
+Number Presion102 "Presion[%.1f mbr]" <pressure> {channel="mqtt:topic:280102:presion102"}
+Number Altitud102 "Altitud[%d m]" <altitud> {channel="mqtt:topic:280102:altitud102"}
+String Camara102 "Camara" <camera> (Habitacion102){channel="mqtt:topic:camara102:camara102"}
+Contact Ventana102 "Ventana 102[MAP(ventana.map):%s]" <window> (Habitacion102,gWindow){channel="mqtt:topic:ventana102:ventana102"}
+Number Polvo102 "Polvo[%.1f ug/m3]" {channel="mqtt:topic:polvo102:polvo102"}
+Number Polvo102X "Polvo 102[%.2f ug/m3]" <polvo> (Habitacion102){channel="mqtt:topic:polvo102x:polvo102x"}
+Number Alarma102 "Alarma" <siren> {channel="mqtt:topic:alarma102:alarma102"}
+Switch Asistencia102 "Asistencia" <switch> {channel="mqtt:topic:asistencia102:asistencia102"}
+//--------------------------------------------------------------------------------------------------------------------------
+Number Temperatura103 "Temperatura 103[%.1f ºC]" <temperature> (Habitacion103,gTemperature) {channel="mqtt:topic:280103:temperatura103"}
+Number Humedad103 "Humedad 103[%d %%]" <humidity> (Habitacion103,gHumidity) {channel="mqtt:topic:280103:humedad103"}
+Number Presion103 "Presion[%.1f mbr]" <pressure> {channel="mqtt:topic:280103:presion103"}
+Number Altitud103 "Altitud[%d m]" <altitud> {channel="mqtt:topic:280103:altitud103"}
+String Camara103 "Camara" <camera> (Habitacion103) {channel="mqtt:topic:camara103:camara103"}
+Contact Ventana103 "Ventana 103[MAP(ventana.map):%s]" <window> (Habitacion103,gWindow) {channel="mqtt:topic:ventana103:ventana103"}
+Number Polvo103 "Polvo[%.1f ug/m3]" {channel="mqtt:topic:polvo103:polvo103"}
+Number Polvo103X "Polvo 103[%.2f ug/m3]" <polvo> (Habitacion103) {channel="mqtt:topic:polvo103x:polvo103x"}
+Number Alarma103 "Alarma" <siren> {channel="mqtt:topic:alarma103:alarma103"}
+Switch Asistencia103 "Asistencia" <switch> {channel="mqtt:topic:asistencia103:asistencia103"}
+//--------------------------------------------------------------------------------------------------------------------------
+Number Temperatura104 "Temperatura 104[%.1f ºC]" <temperature> (Habitacion104,gTemperature) {channel="mqtt:topic:280104:temperatura104"}
+Number Humedad104 "Humedad 104[%d %%]" <humidity> (Habitacion104,gHumidity) {channel="mqtt:topic:280104:humedad104"}
+Number Presion104 "Presion[%.1f mbr]" <pressure> {channel="mqtt:topic:280104:presion104"}
+Number Altitud104 "Altitud[%d m]" <altitud> {channel="mqtt:topic:280104:altitud104"}
+String Camara104 "Camara" <camera> (Habitacion104) {channel="mqtt:topic:camara104:camara104"}
+Contact Ventana104 "Ventana 104[MAP(ventana.map):%s]" <window> (Habitacion104,gWindow) {channel="mqtt:topic:ventana104:ventana104"}
+Number Polvo104 "Polvo[%.1f ug/m3]" {channel="mqtt:topic:polvo104:polvo104"}
+Number Polvo104X "Polvo 104[%.2f ug/m3]" <polvo> (Habitacion104) {channel="mqtt:topic:polvo104x:polvo104x"}
+Number Alarma104 "Alarma" <siren> {channel="mqtt:topic:alarma104:alarma104"}
+Switch Asistencia104 "Asistencia" <switch> {channel="mqtt:topic:asistencia104:asistencia104"}
+//--------------------------------------------------------------------------------------------------------------------------
+Contact Escalera1 "Escalera 1[MAP(escalera.map):%s]" <door> (gDoor) {channel="mqtt:topic:escalera1:escalera1"}
+Contact Escalera2 "Escalera 2[MAP(escalera.map):%s]" <door> (gDoor) {channel="mqtt:topic:escalera2:escalera2"}
+//--------------------------------------------------------------------------------------------------------------------------
+Number Contador "Cuenta" {channel="mqtt:topic:contador:contador"}
+String Informacion "Informacion" {channel="mqtt:topic:informacion:informacion"}
+//--Grupos------------------------------------------------------------------------------------------------------------------------
+Group:Contact:OR(OPEN, CLOSED)   gDoor          "Puertas"                 <door>          (FuenteDeLaSalud)   ["Door"]
+Group:Switch:OR(ON, OFF)         gMotion        "Sensor de movimiento"   <motion>        (FuenteDeLaSalud)   ["MotionDetector", "Switchable"]
+Group:Number:AVG                 gTemperature   "Temperatura"            <temperature>   (FuenteDeLaSalud)   ["Temperature"]
+Group:Number:AVG                 gHumidity      "Humedad"                <humidity>      (FuenteDeLaSalud)   ["Humidity"]
+Group:Contact:OR(OPEN, CLOSED)   gWindow        "Ventanas"                <window>        (FuenteDeLaSalud)   ["Window"]
+//--Valores de Configuracion-101------------------------------------------------------------------------------------------------------
+Number Tempinf101 "Temp inferior[%.1f ºC]" <temperature> (Hab_101_conf) {channel="mqtt:topic:tempinf101:tempinf101"}    // 101/temperatura/inferior
+Number Tempsup101 "Temp superior[%.1f ºC]" <temperature> (Hab_101_conf) {channel="mqtt:topic:tempsup101:tempsup101"}    // 101/temperatura/superior
+Number Humeinf101 "Humedad inferior[%d %%]" <humidity> (Hab_101_conf) {channel="mqtt:topic:humeinf101:humeinf101"}      // 101/humedad/inferior
+Number Humesup101 "Humedad superior[%d %%]" <humidity> (Hab_101_conf) {channel="mqtt:topic:humesup101:humesup101"}      // 101/humedad/superior
+Number Polinf101 "Polvo inferior[%.1f ug/m3]" <polvo> (Hab_101_conf) {channel="mqtt:topic:polinf101:polinf101"}         // 101/polvo/inferior
+Number Polsup101 "Polvo superior[%.1f ug/m3]" <polvo> (Hab_101_conf) {channel="mqtt:topic:polsup101:polsup101"}         // 101/polvo/superior
+String Ventana101Conf "Ventana 101 conf" <window> (Hab_101_conf) {channel="mqtt:topic:ventana101conf:ventana101conf"}   // 101/ventana/configuracion
+//--Valores de Configuracion-102------------------------------------------------------------------------------------------------------
+Number Tempinf102 "Temp inf[%.1f ºC]" <temperature> (Hab_102_conf) {channel="mqtt:topic:tempinf102:tempinf102"}         // 102/temperatura/inferior
+Number Tempsup102 "Temp sup[%.1f ºC]" <temperature> (Hab_102_conf) {channel="mqtt:topic:tempsup102:tempsup102"}         // 102/temperatura/superior
+Number Humeinf102 "Hume inferior[%d %%]" <humidity> (Hab_102_conf) {channel="mqtt:topic:humeinf102:humeinf102"}         // 102/humedad/inferior       
+Number Humesup102 "Hume superior[%d %%]" <humidity> (Hab_102_conf) {channel="mqtt:topic:humesup102:humesup102"}         // 102/humedad/superior
+Number Polinf102 "Polvo inferior[%.1f ug/m3]" <polvo> (Hab_102_conf) {channel="mqtt:topic:polinf102:polinf102"}         // 102/polvo/inferior
+Number Polsup102 "Polvo superior[%.1f ug/m3]" <polvo> (Hab_102_conf) {channel="mqtt:topic:polsup102:polsup102"}         // 102/polvo/superior
+String Ventana102Conf "Ventana 102 conf" <window> (Hab_102_conf) {channel="mqtt:topic:ventana102conf:ventana102conf"}   // 102/ventana/configuracion
+//--Valores de Configuracion-103------------------------------------------------------------------------------------------------------
+Number Tempinf103 "Temp inf[%.1f ºC]" <temperature> (Hab_103_conf) {channel="mqtt:topic:tempinf103:tempinf103"}         // 103/temperatura/inferior
+Number Tempsup103 "Temp sup[%.1f ºC]" <temperature> (Hab_103_conf) {channel="mqtt:topic:tempsup103:tempsup103"}         // 103/temperatura/superior
+Number Humeinf103 "Hume inferior[%d %%]" <humidity> (Hab_103_conf) {channel="mqtt:topic:humeinf103:humeinf103"}         // 103/humedad/inferior 
+Number Humesup103 "Hume superior[%d %%]" <humidity> (Hab_103_conf) {channel="mqtt:topic:humesup103:humesup103"}         // 103/humedad/superior
+Number Polinf103 "Polvo inferior[%.1f ug/m3]" <polvo> (Hab_103_conf) {channel="mqtt:topic:polinf103:polinf103"}         // 103/polvo/inferior
+Number Polsup103 "Polvo superior[%.1f ug/m3]" <polvo> (Hab_103_conf) {channel="mqtt:topic:polsup103:polsup103"}         // 103/polvo/superior
+String Ventana103Conf "Ventana 103 conf" <window> (Hab_103_conf) {channel="mqtt:topic:ventana103conf:ventana103conf"}   // 103/ventana/configuracion
+//--Valores de Configuracion-104------------------------------------------------------------------------------------------------------
+Number Tempinf104 "Temp inferior[%.1f ºC]" <temperature> (Hab_104_conf) {channel="mqtt:topic:tempinf104:tempinf104"}    // 104/temperatura/inferior
+Number Tempsup104 "Temp superior[%.1f ºC]" <temperature> (Hab_104_conf) {channel="mqtt:topic:tempsup104:tempsup104"}    // 104/temperatura/superior
+Number Humeinf104 "Hume inferior[%d %%]" <humidity> (Hab_104_conf) {channel="mqtt:topic:humeinf104:humeinf104"}         // 104/humedad/inferior
+Number Humesup104 "Hume sup[%d %%]" <humidity> (Hab_104_conf) {channel="mqtt:topic:humesup104:humesup104"}              // 104/humedad/superior
+Number Polinf104 "Polvo inferior[%.1f ug/m3]" <polvo> (Hab_104_conf) {channel="mqtt:topic:polinf104:polinf104"}         // 104/polvo/inferior
+Number Polsup104 "Polvo superior[%.1f ug/m3]" <polvo> (Hab_104_conf) {channel="mqtt:topic:polsup104:polsup104"}         // 104/polvo/superior    
+String Ventana104Conf "Ventana 104 conf" <window> (Hab_104_conf) {channel="mqtt:topic:ventana104conf:ventana104conf"}   // 104/ventana/configuracion
+//--Automatico / Manual ---------------------------------------------------------------------------------------------
+Switch Automatico "Automatico" {channel="mqtt:topic:automatico:automatico"}
+Number Controldeautomatico "Control de automatico" {channel="mqtt:topic:controldeautomatico:controldeautomatico"} // 101/control/automatico
+//--Valores de Configuracion de control 101-------------------------------------------------------------------------------------------------------                    
+Number Controltem101 "Controltem101" {channel="mqtt:topic:control101:controltem101"}                // 101/control/temperatura
+Number Controlhum101 "Control hum" {channel="mqtt:topic:controlhum101:controlhum101"}               // 101/control/humedad
+Number Controlpol101 "Control polvo" {channel="mqtt:topic:Controlpol101:Controlpol101"}             // 101/control/polvo
+Number Controlvent101 "Control ventana" {channel="mqtt:topic:controlvent101:controlvent101"}        // 101/control/ventana
+Number Controlcam101 "Controlcam101" {channel="mqtt:topic:controlcam101:controlcam101"}             // 101/control/camara
+Number Alarma101User "Alarma 101 user" {channel="mqtt:topic:alarma101user:alarma101user"}           // 101/alarma/user
+//--Valores de Configuracion de control 102---------------------------------------------------------------------
+Number Controltem102 "Controltem102" {channel="mqtt:topic:controltem102:controltem102"}
+Number Controlhum102 "Controlhum102" {channel="mqtt:topic:controlhum102:controlhum102"}
+Number Controlvent102 "Controlvent102" {channel="mqtt:topic:controlvent102:controlvent102"}
+Number Controlpol102 "Controlpol102" {channel="mqtt:topic:controlpol102:controlpol102"}
+Number Alarma102User "Alarma 102 user" {channel="mqtt:topic:alarma102user:alarma102user"}
+//--Valores de Configuracion de control 103---------------------------------------------------------------------
+Number Controltem103 "Controltem103" {channel="mqtt:topic:controltem103:controltem103"}
+Number Controlhum103 "Controlhum103" {channel="mqtt:topic:controlhum103:controlhum103"}
+Number Controlvent103 "Controlvent103" {channel="mqtt:topic:controlvent103:controlvent103"}
+Number Controlpol103 "Controlpol103" {channel="mqtt:topic:controlpol103:controlpol103"}
+Number Alarma103User "Alarma 103 user" {channel="mqtt:topic:alarma103user:alarma103user"}
+//--Valores de Configuracion de control 104---------------------------------------------------------------------
+Number Controltem104 "Controltem104" {channel="mqtt:topic:controltem104:controltem104"}
+Number Controlhum104 "Controlhum104" {channel="mqtt:topic:controlhum104:controlhum104"}
+Number Controlvent104 "Controlvent104" {channel="mqtt:topic:controlvent104:controlvent104"}
+Number Controlpol104 "Controlpol104" {channel="mqtt:topic:controlpol104:controlpol104"}
+Number Alarma104User "Alarma 104 user" {channel="mqtt:topic:alarma104user:alarma104user"}
+//--------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
